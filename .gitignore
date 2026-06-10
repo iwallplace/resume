@@ -21,3 +21,6 @@ public/*.pdf
 .vscode
 .idea
 .vercel
+.open-next
+.wrangler
+.dev.vars
