@@ -90,6 +90,11 @@ export const translations: Record<Lang, CvContent> = {
                 link: "https://www.huawei.com/en/psirt/security-notices/2017/huawei-sn-20170911-01-hg255s-en"
             },
             {
+                title: "OpenWrt Root Command Injection (CVE-2026-46368)",
+                desc: "Discovered a root command injection (CWE-77, CVSS 8.8 High) in OpenWrt's luci-app-https-dns-proxy: shell metacharacters in the setInitAction ubus RPC 'name' parameter allow arbitrary command execution as root.",
+                link: "https://www.cve.org/CVERecord?id=CVE-2026-46368"
+            },
+            {
                 title: "Dutch Central Bank (DNB)",
                 desc: "Received official reference postmail for vulnerability discovery."
             },
@@ -206,6 +211,11 @@ export const translations: Record<Lang, CvContent> = {
                 title: "Huawei Router Kritik Zafiyet (CVE-2017-17309 / EDB-ID: 42634)",
                 desc: "Huawei HG255s routerlarda kritik güvenlik zafiyeti tespit edilip raporlanmıştır.",
                 link: "https://www.huawei.com/en/psirt/security-notices/2017/huawei-sn-20170911-01-hg255s-en"
+            },
+            {
+                title: "OpenWrt Root Komut Enjeksiyonu (CVE-2026-46368)",
+                desc: "OpenWrt'nin luci-app-https-dns-proxy bileşeninde root yetkisiyle komut enjeksiyonu (CWE-77, CVSS 8.8 Yüksek) tespit edilmiştir: setInitAction ubus RPC 'name' parametresine shell metakarakterleri enjekte ederek root olarak rastgele komut çalıştırılabiliyordu.",
+                link: "https://www.cve.org/CVERecord?id=CVE-2026-46368"
             },
             {
                 title: "Hollanda Merkez Bankası (DNB)",
