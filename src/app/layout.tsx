@@ -7,6 +7,12 @@ const inter = Inter({ subsets: ['latin', 'latin-ext'] })
 export const metadata: Metadata = {
     title: 'Ahmet Mersin | CV',
     description: 'Technician & Cybersecurity Researcher',
+    alternates: {
+        types: {
+            'application/json': [{ url: '/cv.json', title: 'Machine-readable CV (JSON)' }],
+            'text/plain': [{ url: '/llms.txt', title: 'Machine-readable CV (llms.txt)' }],
+        },
+    },
 }
 
 export default function RootLayout({
