@@ -167,7 +167,13 @@ const CVDocument: React.FC<CVDocumentProps> = ({ t }) => (
                     <View key={idx} style={{ marginBottom: 10 }}>
                         <Text style={styles.achievementTitle}>{point.title}</Text>
                         <Text style={styles.achievementDesc}>{point.desc}</Text>
-                        {point.link && (
+                        {point.links ? (
+                            point.links.map((l: any, li: number) => (
+                                <Link key={li} src={l.url} style={{ fontSize: 9, color: '#3b82f6', textDecoration: 'none' }}>
+                                    {l.label}: {l.url}
+                                </Link>
+                            ))
+                        ) : point.link && (
                             <Link src={point.link} style={{ fontSize: 9, color: '#3b82f6', textDecoration: 'none' }}>
                                 {point.link}
                             </Link>

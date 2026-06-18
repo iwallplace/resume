@@ -408,6 +408,17 @@ body {
   line-height: 1.5;
 }
 
+.ref-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.ref-links .news-link {
+  margin-top: 4px;
+}
+
 .patent-card {
   display: flex;
   flex-direction: column;

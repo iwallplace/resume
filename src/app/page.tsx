@@ -217,7 +217,15 @@ export default function CVPage() {
                                     <div key={idx} className="achievement-card">
                                         <h3>{point.title}</h3>
                                         <p>{point.desc}</p>
-                                        {point.link && (
+                                        {point.links ? (
+                                            <div className="ref-links">
+                                                {point.links.map((l, i) => (
+                                                    <a key={i} href={l.url} target="_blank" rel="noopener noreferrer" className="news-link">
+                                                        {l.label} →
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        ) : point.link && (
                                             <a href={point.link} target="_blank" rel="noopener noreferrer" className="news-link">
                                                 {t.viewMedia}
                                             </a>

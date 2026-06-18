@@ -36,7 +36,7 @@ export const profile = {
     ],
 } as const;
 
-export type NotablePoint = { title: string; desc: string; link?: string };
+export type NotablePoint = { title: string; desc: string; link?: string; links?: { label: string; url: string }[] };
 export type Experience = { role: string; company: string; tasks: string[] };
 export type Education = { school: string; degree: string; dates: string };
 export type Patent = {
@@ -91,8 +91,12 @@ export const translations: Record<Lang, CvContent> = {
             },
             {
                 title: "OpenWrt Root Command Injection (CVE-2026-46368)",
-                desc: "Discovered a root command injection (CWE-77, CVSS 8.8 High) in OpenWrt's luci-app-https-dns-proxy: shell metacharacters in the setInitAction ubus RPC 'name' parameter allow arbitrary command execution as root.",
-                link: "https://www.cve.org/CVERecord?id=CVE-2026-46368"
+                desc: "Discovered a root command injection (CWE-77, CVSS 8.8 High) in OpenWrt's luci-app-https-dns-proxy: shell metacharacters in the setInitAction ubus RPC 'name' parameter allow arbitrary command execution as root. Published on Exploit-DB (EDB-52521).",
+                links: [
+                    { label: "CVE Record", url: "https://www.cve.org/CVERecord?id=CVE-2026-46368" },
+                    { label: "Exploit-DB", url: "https://www.exploit-db.com/exploits/52521" },
+                    { label: "PoC (GitHub)", url: "https://github.com/iwallplace/CVE-2026-46368-OpenWrt-Exploit" }
+                ]
             },
             {
                 title: "Dutch Central Bank (DNB)",
@@ -214,8 +218,12 @@ export const translations: Record<Lang, CvContent> = {
             },
             {
                 title: "OpenWrt Root Komut Enjeksiyonu (CVE-2026-46368)",
-                desc: "OpenWrt'nin luci-app-https-dns-proxy bileşeninde root yetkisiyle komut enjeksiyonu (CWE-77, CVSS 8.8 Yüksek) tespit edilmiştir: setInitAction ubus RPC 'name' parametresine shell metakarakterleri enjekte ederek root olarak rastgele komut çalıştırılabiliyordu.",
-                link: "https://www.cve.org/CVERecord?id=CVE-2026-46368"
+                desc: "OpenWrt'nin luci-app-https-dns-proxy bileşeninde root yetkisiyle komut enjeksiyonu (CWE-77, CVSS 8.8 Yüksek) tespit edilmiştir: setInitAction ubus RPC 'name' parametresine shell metakarakterleri enjekte ederek root olarak rastgele komut çalıştırılabiliyordu. Exploit-DB'de yayınlandı (EDB-52521).",
+                links: [
+                    { label: "CVE Kaydı", url: "https://www.cve.org/CVERecord?id=CVE-2026-46368" },
+                    { label: "Exploit-DB", url: "https://www.exploit-db.com/exploits/52521" },
+                    { label: "PoC (GitHub)", url: "https://github.com/iwallplace/CVE-2026-46368-OpenWrt-Exploit" }
+                ]
             },
             {
                 title: "Hollanda Merkez Bankası (DNB)",
@@ -365,7 +373,11 @@ export function buildCvJson(lang: Lang) {
                 highlights: e.tasks,
             };
         }),
-        achievements: t.notablePoints.map((p) => ({ title: p.title, description: p.desc, reference: p.link ?? null })),
+        achievements: t.notablePoints.map((p) => ({
+            title: p.title,
+            description: p.desc,
+            references: p.links ? p.links.map((l) => l.url) : p.link ? [p.link] : [],
+        })),
         patents: t.patents.map((p) => ({
             name: p.name,
             kind: p.kind,
@@ -405,6 +417,11 @@ export function buildVerification() {
     }
     for (const n of t.notablePoints) {
         if (n.link) items.push({ claim: n.title, type: 'achievement', source: n.link });
+        if (n.links) {
+            for (const l of n.links) {
+                items.push({ claim: `${n.title} — ${l.label}`, type: 'achievement', source: l.url });
+            }
+        }
     }
     for (const c of profile.contacts) {
         if (!['email', 'website'].includes(c.type)) {
@@ -497,6 +514,7 @@ export function buildCvMarkdown(lang: Lang): string {
         lines.push(`### ${p.title}`);
         lines.push(p.desc);
         if (p.link) lines.push(`Reference: ${p.link}`);
+        if (p.links) for (const l of p.links) lines.push(`${l.label}: ${l.url}`);
         lines.push('');
     }
 
