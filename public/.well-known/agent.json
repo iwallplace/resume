@@ -1,0 +1,13 @@
+{
+  "name": "Ahmet Mersin — CV",
+  "description": "Machine-readable CV / agent card for Ahmet Mersin, Technician & Cybersecurity Researcher.",
+  "url": "https://ahmetmersin.com/",
+  "contact": "hestiases@gmail.com",
+  "instructions": "Fetch /cv.json for the full structured CV (EN + TR). Every notable claim is paired with a verification source. A Markdown rendering is available at /llms.txt.",
+  "resources": [
+    { "type": "application/json", "title": "Structured CV", "url": "https://ahmetmersin.com/cv.json" },
+    { "type": "text/markdown", "title": "CV (llms.txt)", "url": "https://ahmetmersin.com/llms.txt" },
+    { "type": "application/ld+json", "title": "schema.org Person (embedded in /)", "url": "https://ahmetmersin.com/" }
+  ],
+  "license": "CC-BY-4.0"
+}

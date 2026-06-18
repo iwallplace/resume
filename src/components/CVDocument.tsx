@@ -219,7 +219,7 @@ const CVDocument: React.FC<CVDocumentProps> = ({ t }) => (
             <View style={styles.sidebar}>
                 <View style={styles.sidebarSection}>
                     <Text style={styles.sidebarTitle}>{t.contact}</Text>
-                    <Text style={styles.sidebarText}>intra@outlook.com.tr</Text>
+                    <Text style={styles.sidebarText}>hestiases@gmail.com</Text>
 
                     <Link src="https://ahmetmersin.com" style={styles.sidebarLink}>ahmetmersin.com</Link>
                     <Link src="https://www.linkedin.com/in/ahmetmersin/" style={styles.sidebarLink}>LinkedIn</Link>

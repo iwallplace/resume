@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahmetmersin.com/cv.schema.json",
+  "title": "Machine-readable CV",
+  "description": "Schema for the structured CV served at /cv.json (per-language object).",
+  "type": "object",
+  "properties": {
+    "format": { "const": "machine-readable-cv" },
+    "version": { "type": "string" },
+    "lastUpdated": { "type": "string", "format": "date" },
+    "language": { "type": "string", "enum": ["en", "tr"] },
+    "person": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "location": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "website": { "type": "string", "format": "uri" }
+      },
+      "required": ["name", "title", "email"]
+    },
+    "contact": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string" },
+          "label": { "type": "string" },
+          "url": { "type": "string" }
+        },
+        "required": ["type", "url"]
+      }
+    },
+    "skills": { "type": "array", "items": { "type": "string" } },
+    "certifications": { "type": "array", "items": { "type": "string" } },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "institution": { "type": "string" },
+          "program": { "type": "string" },
+          "period": { "type": "string" }
+        }
+      }
+    },
+    "experience": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": { "type": "string" },
+          "organization": { "type": "string" },
+          "location": { "type": ["string", "null"] },
+          "period": { "type": ["string", "null"] },
+          "highlights": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "achievements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "reference": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "patents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "kind": { "type": "string" },
+          "title": { "type": "string" },
+          "identifier": { "type": "string" },
+          "dates": { "type": ["string", "null"] },
+          "scope": { "type": ["string", "null"] },
+          "reference": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "verification": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim": { "type": "string" },
+          "type": { "type": "string" },
+          "source": { "type": "string", "format": "uri" }
+        },
+        "required": ["claim", "source"]
+      }
+    },
+    "meta": { "type": "object" }
+  },
+  "required": ["format", "version", "language", "person"]
+}

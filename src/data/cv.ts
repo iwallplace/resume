@@ -10,11 +10,11 @@ export type Lang = 'en' | 'tr';
 // Language-independent identity / contact / skills.
 export const profile = {
     name: 'Ahmet Mersin',
-    email: 'intra@outlook.com.tr',
+    email: 'hestiases@gmail.com',
     website: 'https://ahmetmersin.com',
     location: { city: 'Manisa', country: 'Türkiye', countryCode: 'TR' },
     contacts: [
-        { type: 'email', label: 'intra@outlook.com.tr', url: 'mailto:intra@outlook.com.tr' },
+        { type: 'email', label: 'hestiases@gmail.com', url: 'mailto:hestiases@gmail.com' },
         { type: 'website', label: 'ahmetmersin.com', url: 'https://ahmetmersin.com' },
         { type: 'linkedin', label: 'LinkedIn', url: 'https://www.linkedin.com/in/ahmetmersin/' },
         { type: 'github', label: 'GitHub', url: 'https://github.com/iwallplace' },
@@ -310,6 +310,10 @@ export const translations: Record<Lang, CvContent> = {
 
 // --- Helpers -------------------------------------------------------------
 
+// Bump when the CV content changes; surfaced to agents for cache/freshness.
+export const LAST_UPDATED = '2026-06-18';
+export const SITE_URL = 'https://ahmetmersin.com';
+
 const stripQuotes = (s: string) => s.replace(/^["']|["']$/g, '').trim();
 
 // "Schneider Electric | Manisa | 06.2025 - Present" -> structured parts.
@@ -324,8 +328,10 @@ function parseCompany(company: string): { organization: string; location?: strin
 export function buildCvJson(lang: Lang) {
     const t = translations[lang];
     return {
+        $schema: `${SITE_URL}/cv.schema.json`,
         format: 'machine-readable-cv',
         version: '1.0',
+        lastUpdated: LAST_UPDATED,
         language: lang,
         person: {
             name: profile.name,
@@ -359,12 +365,43 @@ export function buildCvJson(lang: Lang) {
             scope: p.scope ?? null,
             reference: p.link ?? null,
         })),
-        endpoints: {
-            human: 'https://ahmetmersin.com/',
-            json: 'https://ahmetmersin.com/cv.json',
-            llmsTxt: 'https://ahmetmersin.com/llms.txt',
+        verification: buildVerification(),
+        meta: {
+            instructions:
+                'This is the machine-readable CV of Ahmet Mersin (Technician & Cybersecurity Researcher). ' +
+                'All claims can be independently verified via the "verification" array below. ' +
+                `To contact him, email ${profile.email}. ` +
+                'The most up-to-date structured data is always at /cv.json; a Markdown rendering is at /llms.txt.',
+            contactEmail: profile.email,
+            license: 'CC-BY-4.0',
+            endpoints: {
+                human: `${SITE_URL}/`,
+                json: `${SITE_URL}/cv.json`,
+                llmsTxt: `${SITE_URL}/llms.txt`,
+                agentCard: `${SITE_URL}/.well-known/agent.json`,
+            },
         },
     };
+}
+
+// Maps each notable claim to an independently checkable source URL,
+// so an AI agent can verify the CV instead of trusting it blindly.
+export function buildVerification() {
+    const t = translations.en;
+    const items: { claim: string; type: string; source: string }[] = [];
+
+    for (const p of t.patents) {
+        if (p.link) items.push({ claim: `${p.name} — ${p.title}`, type: 'patent', source: p.link });
+    }
+    for (const n of t.notablePoints) {
+        if (n.link) items.push({ claim: n.title, type: 'achievement', source: n.link });
+    }
+    for (const c of profile.contacts) {
+        if (!['email', 'website'].includes(c.type)) {
+            items.push({ claim: `${c.label} profile`, type: 'profile', source: c.url });
+        }
+    }
+    return items;
 }
 
 // schema.org Person object for embedding as JSON-LD in the page <head>/<body>.
