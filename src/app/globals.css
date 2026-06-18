@@ -408,6 +408,33 @@ body {
   line-height: 1.5;
 }
 
+.patent-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.patent-tag {
+  align-self: flex-start;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.patent-id {
+  font-family: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
 .news-link {
   display: inline-block;
   margin-top: 12px;

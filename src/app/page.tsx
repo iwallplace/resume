@@ -227,6 +227,34 @@ export default function CVPage() {
                             </div>
                         </section>
 
+                        <section style={{ marginBottom: '40px' }}>
+                            <div className="section-header-wrap">
+                                <h2 className="section-title-main">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: '12px' }}>
+                                        <circle cx="12" cy="8" r="6"></circle>
+                                        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+                                    </svg>
+                                    {t.patentsTitle}
+                                </h2>
+                            </div>
+                            <div className="achievements-grid">
+                                {t.patents.map((p, idx) => (
+                                    <div key={idx} className="achievement-card patent-card">
+                                        <span className="patent-tag">{p.kind}</span>
+                                        <h3>{p.name} — {p.title}</h3>
+                                        <p className="patent-id">{p.identifier}</p>
+                                        {p.dates && <p className="patent-id">{p.dates}</p>}
+                                        {p.scope && <p>{p.scope}</p>}
+                                        {p.link && (
+                                            <a href={p.link} target="_blank" rel="noopener noreferrer" className="news-link">
+                                                {t.viewPatent}
+                                            </a>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+
                         <section>
                             <div className="section-header-wrap">
                                 <h2 className="section-title-main">

@@ -39,6 +39,15 @@ export const profile = {
 export type NotablePoint = { title: string; desc: string; link?: string };
 export type Experience = { role: string; company: string; tasks: string[] };
 export type Education = { school: string; degree: string; dates: string };
+export type Patent = {
+    name: string;
+    kind: string;        // e.g. "Patent Application" / "Utility Model Application"
+    title: string;       // short description of the invention
+    identifier: string;  // publication or application number
+    dates?: string;      // filing / publication dates
+    scope?: string;      // technical scope / key components
+    link?: string;       // Espacenet or registry link
+};
 
 export type CvContent = {
     title: string;
@@ -48,10 +57,13 @@ export type CvContent = {
     education: string;
     workExperience: string;
     achievements: string;
+    patentsTitle: string;
     downloadPdf: string;
     viewMedia: string;
+    viewPatent: string;
     summary: string;
     notablePoints: NotablePoint[];
+    patents: Patent[];
     experiences: Experience[];
     educationList: Education[];
     certList: string[];
@@ -66,8 +78,10 @@ export const translations: Record<Lang, CvContent> = {
         education: "EDUCATION",
         workExperience: "WORK EXPERIENCE",
         achievements: "NOTABLE ACHIEVEMENTS & MEDIA",
+        patentsTitle: "PATENTS & INTELLECTUAL PROPERTY",
         downloadPdf: "Download PDF",
         viewMedia: "View News →",
+        viewPatent: "View on Espacenet →",
         summary: '"I have gained experience working at the world\'s largest energy and automation company and Europe\'s leading home appliances manufacturer. I identified security vulnerabilities in assets belonging to global giants and earned awards. Throughout these processes, I have developed strong collaboration skills by working with diverse teams."',
         notablePoints: [
             {
@@ -87,6 +101,24 @@ export const translations: Record<Lang, CvContent> = {
             {
                 title: "Global Security Research",
                 desc: "Discovered and reported vulnerabilities in industry giants such as U.S. Dept Of Defense, General Motors, Uber, Yahoo, Yandex, Bosch, and many more."
+            }
+        ],
+        patents: [
+            {
+                name: "ML-DC1",
+                kind: "Patent Application",
+                title: "ESP32-based ambient intelligence desk device",
+                identifier: "Publication No: TR 2026005478 A2",
+                dates: "Filed: 10 Apr 2026 · Published: 21 May 2026",
+                scope: "Asymmetric dual-channel output architecture + cloud–hardware bridge system",
+                link: "https://worldwide.espacenet.com/patent/search?q=pn%3DTR2026005478A2"
+            },
+            {
+                name: "ML-RF1",
+                kind: "Utility Model Application",
+                title: "SDR preselector",
+                identifier: "Application No: 2026/004623",
+                scope: "PCB: ESP32/RP2040, PE4259 switch, SPF5189Z LNA, 5-band SAW filter bank"
             }
         ],
         experiences: [
@@ -164,8 +196,10 @@ export const translations: Record<Lang, CvContent> = {
         education: "EĞİTİM",
         workExperience: "İŞ DENEYİMİ",
         achievements: "ÖNEMLİ BAŞARILAR & MEDYA",
+        patentsTitle: "PATENTLER & FİKRİ MÜLKİYET",
         downloadPdf: "PDF İndir",
         viewMedia: "Haberi Görüntüle →",
+        viewPatent: "Espacenet'te Görüntüle →",
         summary: '"Dünyanın en büyük enerji ve otomasyon şirketi ve Avrupa\'nın en büyük beyaz eşya üreticisinde çalışma deneyimine sahibim. Dünya devlerine ait varlıklarda güvenlik açıkları buldum ve ödüller kazandım. Bu süreçlerde birçok farklı insanla ve takımla uyum içinde çalışma fırsatı buldum."',
         notablePoints: [
             {
@@ -185,6 +219,24 @@ export const translations: Record<Lang, CvContent> = {
             {
                 title: "Global Güvenlik Araştırmaları",
                 desc: "U.S. Dept Of Defense, General Motors, Uber, Yahoo, Yandex, Bosch ve çok daha fazlası gibi endüstri devlerinde zafiyetler tespit edilip raporlanmıştır."
+            }
+        ],
+        patents: [
+            {
+                name: "ML-DC1",
+                kind: "Patent Başvurusu",
+                title: "ESP32 tabanlı ambient intelligence masa cihazı",
+                identifier: "Yayın No: TR 2026005478 A2",
+                dates: "Başvuru: 10 Nisan 2026 · Yayın: 21 Mayıs 2026",
+                scope: "Asimetrik çift kanallı çıkış mimarisi + bulut–donanım köprü sistemi",
+                link: "https://worldwide.espacenet.com/patent/search?q=pn%3DTR2026005478A2"
+            },
+            {
+                name: "ML-RF1",
+                kind: "Faydalı Model Başvurusu",
+                title: "SDR preselektör",
+                identifier: "Başvuru No: 2026/004623",
+                scope: "PCB: ESP32/RP2040, PE4259 switch, SPF5189Z LNA, 5-bant SAW filtre bankası"
             }
         ],
         experiences: [
@@ -298,6 +350,15 @@ export function buildCvJson(lang: Lang) {
             };
         }),
         achievements: t.notablePoints.map((p) => ({ title: p.title, description: p.desc, reference: p.link ?? null })),
+        patents: t.patents.map((p) => ({
+            name: p.name,
+            kind: p.kind,
+            title: p.title,
+            identifier: p.identifier,
+            dates: p.dates ?? null,
+            scope: p.scope ?? null,
+            reference: p.link ?? null,
+        })),
         endpoints: {
             human: 'https://ahmetmersin.com/',
             json: 'https://ahmetmersin.com/cv.json',
@@ -334,6 +395,13 @@ export function buildPersonJsonLd(lang: Lang) {
             '@type': 'EducationalOccupationalCredential',
             name,
         })),
+        subjectOf: t.patents.map((p) => ({
+            '@type': 'CreativeWork',
+            additionalType: p.kind,
+            name: `${p.name} — ${p.title}`,
+            identifier: p.identifier,
+            ...(p.link ? { url: p.link } : {}),
+        })),
     };
 }
 
@@ -341,8 +409,8 @@ export function buildPersonJsonLd(lang: Lang) {
 export function buildCvMarkdown(lang: Lang): string {
     const t = translations[lang];
     const L = lang === 'tr'
-        ? { contact: 'İletişim', skills: 'Yetkinlikler', certs: 'Sertifikalar', edu: 'Eğitim', exp: 'İş Deneyimi', ach: 'Başarılar & Medya' }
-        : { contact: 'Contact', skills: 'Skills', certs: 'Certifications', edu: 'Education', exp: 'Work Experience', ach: 'Achievements & Media' };
+        ? { contact: 'İletişim', skills: 'Yetkinlikler', certs: 'Sertifikalar', edu: 'Eğitim', exp: 'İş Deneyimi', ach: 'Başarılar & Medya', pat: 'Patentler & Fikri Mülkiyet' }
+        : { contact: 'Contact', skills: 'Skills', certs: 'Certifications', edu: 'Education', exp: 'Work Experience', ach: 'Achievements & Media', pat: 'Patents & Intellectual Property' };
 
     const lines: string[] = [];
     lines.push(`# ${profile.name}`);
@@ -364,6 +432,16 @@ export function buildCvMarkdown(lang: Lang): string {
     for (const e of t.experiences) {
         lines.push(`### ${e.role} — ${e.company}`);
         for (const task of e.tasks) lines.push(`- ${task}`);
+        lines.push('');
+    }
+
+    lines.push(`## ${L.pat}`);
+    for (const p of t.patents) {
+        lines.push(`### ${p.name} — ${p.title} (${p.kind})`);
+        lines.push(`- ${p.identifier}`);
+        if (p.dates) lines.push(`- ${p.dates}`);
+        if (p.scope) lines.push(`- ${p.scope}`);
+        if (p.link) lines.push(`- Reference: ${p.link}`);
         lines.push('');
     }
 

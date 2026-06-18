@@ -175,6 +175,29 @@ const CVDocument: React.FC<CVDocumentProps> = ({ t }) => (
                     </View>
                 ))}
 
+                {t.patents && t.patents.length > 0 && (
+                    <>
+                        <View style={styles.sectionTitle}>
+                            <View style={{ width: 4, height: 4, backgroundColor: '#0f172a', borderRadius: 2, marginRight: 8 }} />
+                            <Text>{t.patentsTitle}</Text>
+                        </View>
+                        {t.patents.map((p: any, idx: number) => (
+                            <View key={idx} style={{ marginBottom: 6 }}>
+                                <Text style={styles.achievementTitle}>{p.name} — {p.title} ({p.kind})</Text>
+                                <Text style={styles.achievementDesc}>
+                                    {p.identifier}{p.dates ? ` · ${p.dates}` : ''}
+                                </Text>
+                                {p.scope && <Text style={styles.achievementDesc}>{p.scope}</Text>}
+                                {p.link && (
+                                    <Link src={p.link} style={{ fontSize: 9, color: '#3b82f6', textDecoration: 'none' }}>
+                                        {p.link}
+                                    </Link>
+                                )}
+                            </View>
+                        ))}
+                    </>
+                )}
+
                 <View style={styles.sectionTitle}>
                     <View style={{ width: 4, height: 4, backgroundColor: '#0f172a', borderRadius: 2, marginRight: 8 }} />
                     <Text>{t.workExperience}</Text>
