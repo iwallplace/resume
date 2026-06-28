@@ -16,6 +16,7 @@ yarn-error.log*
 *.pdf
 public/*.pdf
 !public/Ahmet_Mersin_*.pdf  # Keep specific static PDFs if intended, but generally ignore generated ones
+!public/dnb-reference-letter.pdf
 
 # Editor
 .vscode

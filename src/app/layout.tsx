@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         description: DESCRIPTION,
         url: 'https://ahmetmersin.com/',
         siteName: 'Ahmet Mersin',
-        images: [{ url: '/profile.jpg', width: 340, height: 400, alt: 'Ahmet Mersin' }],
+        images: [{ url: '/profile.jpg', width: 1024, height: 1536, alt: 'Ahmet Mersin' }],
     },
     twitter: {
         card: 'summary',

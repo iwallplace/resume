@@ -100,7 +100,10 @@ export const translations: Record<Lang, CvContent> = {
             },
             {
                 title: "Dutch Central Bank (DNB)",
-                desc: "Received official reference postmail for vulnerability discovery."
+                desc: "Received official reference postmail for vulnerability discovery.",
+                links: [
+                    { label: "DNB Document", url: "/dnb-reference-letter.pdf" }
+                ]
             },
             {
                 title: "Hürriyet Media - Vulnerability Hunter",
@@ -227,7 +230,10 @@ export const translations: Record<Lang, CvContent> = {
             },
             {
                 title: "Hollanda Merkez Bankası (DNB)",
-                desc: "Zafiyet keşfi için resmi referans mektubu almıştır."
+                desc: "Zafiyet keşfi için resmi referans mektubu almıştır.",
+                links: [
+                    { label: "DNB Belgesi", url: "/dnb-reference-letter.pdf" }
+                ]
             },
             {
                 title: "Hürriyet Gazetesi - Açık Avcısı",
