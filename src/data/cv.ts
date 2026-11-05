@@ -186,7 +186,7 @@ export const translations: Record<Lang, CvContent> = {
             }
         ],
         educationList: [
-            { school: "ANADOLU UNIVERSITY", degree: "Computer Programming (Associate Degree)", dates: "2024 - 2026" },
+            { school: "ANADOLU UNIVERSITY", degree: "Business Administration (Bachelor's Degree)", dates: "2026 - 2029" },
             { school: "ANADOLU UNIVERSITY", degree: "Occupational Health and Safety (Associate Degree)", dates: "2021 - 2023" },
             { school: "BALIKESİR UNIVERSITY", degree: "Air Conditioning & Refrigeration Tech (Associate Degree)", dates: "2016 - 2019" }
         ],
@@ -316,7 +316,7 @@ export const translations: Record<Lang, CvContent> = {
             }
         ],
         educationList: [
-            { school: "ANADOLU ÜNİVERSİTESİ", degree: "Bilgisayar Programcılığı (Önlisans)", dates: "2024 - 2026" },
+            { school: "ANADOLU ÜNİVERSİTESİ", degree: "İşletme (Lisans)", dates: "2026 - 2029" },
             { school: "ANADOLU ÜNİVERSİTESİ", degree: "İş Sağlığı ve Güvenliği (Önlisans)", dates: "2021 - 2023" },
             { school: "BALIKESİR ÜNİVERSİTESİ", degree: "İklimlendirme ve Soğutma Teknolojileri (Önlisans)", dates: "2016 - 2019" }
         ],
@@ -335,7 +335,7 @@ export const translations: Record<Lang, CvContent> = {
 // --- Helpers -------------------------------------------------------------
 
 // Bump when the CV content changes; surfaced to agents for cache/freshness.
-export const LAST_UPDATED = '2026-06-18';
+export const LAST_UPDATED = '2026-11-05';
 export const SITE_URL = 'https://ahmetmersin.com';
 
 const stripQuotes = (s: string) => s.replace(/^["']|["']$/g, '').trim();
