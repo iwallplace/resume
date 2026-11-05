@@ -99,6 +99,14 @@ export const translations: Record<Lang, CvContent> = {
                 ]
             },
             {
+                title: "EcoOnline EHS Android Deep Link Bypass (CVE-2026-26897)",
+                desc: "Discovered a deep link validation bypass (CWE-939) in the EcoOnline EHS Android app (com.airsweb.v10): crafted ehs-app:// links were rewritten to https:// and loaded into the app's WebView without its host allow-list check, rendering attacker-controlled content inside the trusted app (phishing). Vendor-acknowledged; fixed in version 0.2.500.",
+                links: [
+                    { label: "CVE Record", url: "https://www.cve.org/CVERecord?id=CVE-2026-26897" },
+                    { label: "Advisory (GitHub)", url: "https://github.com/iwallplace/CVE-2026-26897-EcoOnline-DeepLink" }
+                ]
+            },
+            {
                 title: "Dutch Central Bank (DNB)",
                 desc: "Received official reference postmail for vulnerability discovery.",
                 links: [
@@ -135,7 +143,7 @@ export const translations: Record<Lang, CvContent> = {
         ],
         experiences: [
             {
-                role: "IME TECHNICIAN",
+                role: "COMPUTER TECHNICIAN",
                 company: "Schneider Electric | Manisa | 06.2025 - Present",
                 tasks: [
                     "Developed software and macros to improve personnel efficiency and optimize workflows.",
@@ -229,6 +237,14 @@ export const translations: Record<Lang, CvContent> = {
                 ]
             },
             {
+                title: "EcoOnline EHS Android Deep Link Doğrulama Atlatma (CVE-2026-26897)",
+                desc: "EcoOnline EHS Android uygulamasında (com.airsweb.v10) deep link doğrulama atlatma zafiyeti (CWE-939) tespit edilmiştir: özel hazırlanmış ehs-app:// bağlantıları https:// adresine çevrilip uygulamanın host izin listesi kontrolü yapılmadan WebView'a yükleniyor, saldırganın içeriği güvenilir uygulamanın içinde gösterilebiliyordu (oltalama). Üretici tarafından kabul edildi; 0.2.500 sürümünde giderildi.",
+                links: [
+                    { label: "CVE Kaydı", url: "https://www.cve.org/CVERecord?id=CVE-2026-26897" },
+                    { label: "Güvenlik Duyurusu (GitHub)", url: "https://github.com/iwallplace/CVE-2026-26897-EcoOnline-DeepLink" }
+                ]
+            },
+            {
                 title: "Hollanda Merkez Bankası (DNB)",
                 desc: "Zafiyet keşfi için resmi referans mektubu almıştır.",
                 links: [
@@ -265,7 +281,7 @@ export const translations: Record<Lang, CvContent> = {
         ],
         experiences: [
             {
-                role: "IME TEKNİSYENİ",
+                role: "BİLGİSAYAR TEKNİSYENİ",
                 company: "Schneider Electric | Manisa | 06.2025 - Güncel",
                 tasks: [
                     "Personel verimliliğini artırmak ve iş akışlarını optimize etmek için yazılımlar ve makrolar geliştirdi.",
